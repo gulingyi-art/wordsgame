@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-Z 字母随机滚动抽取器</title>
+
+    <style>
+*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:Inter,system-ui,-apple-system,PingFang SC,Microsoft YaHei,sans-serif;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width:640px){.container{max-width:640px}}@media (min-width:768px){.container{max-width:768px}}@media (min-width:1024px){.container{max-width:1024px}}@media (min-width:1280px){.container{max-width:1280px}}@media (min-width:1536px){.container{max-width:1536px}}.pointer-events-none{pointer-events:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0}.left-1\/2{left:50%}.top-5{top:1.25rem}.z-10{z-index:10}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.my-6{margin-top:1.5rem;margin-bottom:1.5rem}.my-auto{margin-top:auto;margin-bottom:auto}.mt-1{margin-top:.25rem}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.h-11{height:2.75rem}.h-2{height:.5rem}.h-48{height:12rem}.h-8{height:2rem}.h-full{height:100%}.max-h-44{max-height:11rem}.min-h-\[76px\]{min-height:76px}.w-11{width:2.75rem}.w-2{width:.5rem}.w-48{width:12rem}.w-full{width:100%}.max-w-4xl{max-width:56rem}.flex-1{flex:1 1 0%}.-translate-x-1\/2{--tw-translate-x:-50%}.-translate-x-1\/2,.-translate-y-2{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.-translate-y-2{--tw-translate-y:-0.5rem}.translate-y-0{--tw-translate-y:0px}.scale-95,.translate-y-0{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.scale-95{--tw-scale-x:.95;--tw-scale-y:.95}.transform{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes ping{75%,to{transform:scale(2);opacity:0}}.animate-ping{animation:ping 1s cubic-bezier(0,0,.2,1) infinite}@keyframes pop{0%{transform:scale(.75);opacity:.5}60%{transform:scale(1.12)}to{transform:scale(1);opacity:1}}.animate-pop{animation:pop .45s cubic-bezier(.175,.885,.32,1.275) forwards}.cursor-pointer{cursor:pointer}.select-none{-webkit-user-select:none;-moz-user-select:none;user-select:none}.resize{resize:both}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid-cols-7{grid-template-columns:repeat(7,minmax(0,1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.items-stretch{align-items:stretch}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-1\.5{gap:.375rem}.gap-2{gap:.5rem}.gap-2\.5{gap:.625rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}.gap-5{gap:1.25rem}.gap-6{gap:1.5rem}.overflow-hidden{overflow:hidden}.overflow-y-auto{overflow-y:auto}.overflow-x-hidden{overflow-x:hidden}.rounded{border-radius:.25rem}.rounded-2xl{border-radius:1rem}.rounded-3xl{border-radius:1.5rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:.5rem}.rounded-xl{border-radius:.75rem}.border{border-width:1px}.border-2{border-width:2px}.border-indigo-100{--tw-border-opacity:1;border-color:rgb(224 231 255/var(--tw-border-opacity,1))}.border-indigo-200{--tw-border-opacity:1;border-color:rgb(199 210 254/var(--tw-border-opacity,1))}.border-indigo-500{--tw-border-opacity:1;border-color:rgb(99 102 241/var(--tw-border-opacity,1))}.border-indigo-600{--tw-border-opacity:1;border-color:rgb(79 70 229/var(--tw-border-opacity,1))}.border-slate-200{--tw-border-opacity:1;border-color:rgb(226 232 240/var(--tw-border-opacity,1))}.border-slate-200\/60{border-color:rgba(226,232,240,.6)}.border-slate-200\/80{border-color:rgba(226,232,240,.8)}.border-slate-300{--tw-border-opacity:1;border-color:rgb(203 213 225/var(--tw-border-opacity,1))}.bg-emerald-50{--tw-bg-opacity:1;background-color:rgb(236 253 245/var(--tw-bg-opacity,1))}.bg-emerald-500{--tw-bg-opacity:1;background-color:rgb(16 185 129/var(--tw-bg-opacity,1))}.bg-emerald-600{--tw-bg-opacity:1;background-color:rgb(5 150 105/var(--tw-bg-opacity,1))}.bg-indigo-100{--tw-bg-opacity:1;background-color:rgb(224 231 255/var(--tw-bg-opacity,1))}.bg-indigo-50{--tw-bg-opacity:1;background-color:rgb(238 242 255/var(--tw-bg-opacity,1))}.bg-indigo-600{--tw-bg-opacity:1;background-color:rgb(79 70 229/var(--tw-bg-opacity,1))}.bg-rose-50{--tw-bg-opacity:1;background-color:rgb(255 241 242/var(--tw-bg-opacity,1))}.bg-slate-100{--tw-bg-opacity:1;background-color:rgb(241 245 249/var(--tw-bg-opacity,1))}.bg-slate-400{--tw-bg-opacity:1;background-color:rgb(148 163 184/var(--tw-bg-opacity,1))}.bg-slate-50\/80{background-color:rgba(248,250,252,.8)}.bg-slate-800\/95{background-color:rgba(30,41,59,.95)}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.bg-white\/80{background-color:hsla(0,0%,100%,.8)}.bg-white\/90{background-color:hsla(0,0%,100%,.9)}.bg-gradient-to-br{background-image:linear-gradient(to bottom right,var(--tw-gradient-stops))}.bg-gradient-to-r{background-image:linear-gradient(to right,var(--tw-gradient-stops))}.from-amber-500{--tw-gradient-from:#f59e0b var(--tw-gradient-from-position);--tw-gradient-to:rgba(245,158,11,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-indigo-500\/0{--tw-gradient-from:rgba(99,102,241,0) var(--tw-gradient-from-position);--tw-gradient-to:rgba(99,102,241,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-indigo-500\/10{--tw-gradient-from:rgba(99,102,241,.1) var(--tw-gradient-from-position);--tw-gradient-to:rgba(99,102,241,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-indigo-500\/5{--tw-gradient-from:rgba(99,102,241,.05) var(--tw-gradient-from-position);--tw-gradient-to:rgba(99,102,241,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-indigo-600{--tw-gradient-from:#4f46e5 var(--tw-gradient-from-position);--tw-gradient-to:rgba(79,70,229,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-slate-50{--tw-gradient-from:#f8fafc var(--tw-gradient-from-position);--tw-gradient-to:rgba(248,250,252,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.to-indigo-50\/60{--tw-gradient-to:rgba(238,242,255,.6) var(--tw-gradient-to-position)}.to-orange-500{--tw-gradient-to:#f97316 var(--tw-gradient-to-position)}.to-violet-500\/0{--tw-gradient-to:rgba(139,92,246,0) var(--tw-gradient-to-position)}.to-violet-500\/15{--tw-gradient-to:rgba(139,92,246,.15) var(--tw-gradient-to-position)}.to-violet-500\/5{--tw-gradient-to:rgba(139,92,246,.05) var(--tw-gradient-to-position)}.to-violet-600{--tw-gradient-to:#7c3aed var(--tw-gradient-to-position)}.bg-clip-text{-webkit-background-clip:text;background-clip:text}.p-1\.5{padding:.375rem}.p-3{padding:.75rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.px-1\.5{padding-left:.375rem;padding-right:.375rem}.px-2\.5{padding-left:.625rem;padding-right:.625rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-3\.5{padding-left:.875rem;padding-right:.875rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-0\.5{padding-top:.125rem;padding-bottom:.125rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-1\.5{padding-top:.375rem;padding-bottom:.375rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-2\.5{padding-top:.625rem;padding-bottom:.625rem}.py-4{padding-top:1rem;padding-bottom:1rem}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-8xl{font-size:6rem;line-height:1}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:.75rem;line-height:1rem}.font-black{font-weight:900}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-medium{font-weight:500}.font-normal{font-weight:400}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.tracking-tight{letter-spacing:-.025em}.tracking-tighter{letter-spacing:-.05em}.tracking-wider{letter-spacing:.05em}.tracking-widest{letter-spacing:.1em}.text-emerald-600{--tw-text-opacity:1;color:rgb(5 150 105/var(--tw-text-opacity,1))}.text-indigo-200{--tw-text-opacity:1;color:rgb(199 210 254/var(--tw-text-opacity,1))}.text-indigo-500{--tw-text-opacity:1;color:rgb(99 102 241/var(--tw-text-opacity,1))}.text-indigo-600{--tw-text-opacity:1;color:rgb(79 70 229/var(--tw-text-opacity,1))}.text-indigo-700{--tw-text-opacity:1;color:rgb(67 56 202/var(--tw-text-opacity,1))}.text-rose-600{--tw-text-opacity:1;color:rgb(225 29 72/var(--tw-text-opacity,1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184/var(--tw-text-opacity,1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139/var(--tw-text-opacity,1))}.text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105/var(--tw-text-opacity,1))}.text-slate-700{--tw-text-opacity:1;color:rgb(51 65 85/var(--tw-text-opacity,1))}.text-slate-800{--tw-text-opacity:1;color:rgb(30 41 59/var(--tw-text-opacity,1))}.text-transparent{color:transparent}.text-white{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1))}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.opacity-0{opacity:0}.opacity-100{opacity:1}.shadow-inner{--tw-shadow:inset 0 2px 4px 0 rgba(0,0,0,.05);--tw-shadow-colored:inset 0 2px 4px 0 var(--tw-shadow-color)}.shadow-inner,.shadow-lg{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color),0 4px 6px -4px var(--tw-shadow-color)}.shadow-md{--tw-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color),0 2px 4px -2px var(--tw-shadow-color)}.shadow-md,.shadow-sm{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgba(0,0,0,.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color)}.shadow-amber-500\/25{--tw-shadow-color:rgba(245,158,11,.25);--tw-shadow:var(--tw-shadow-colored)}.shadow-emerald-500\/20{--tw-shadow-color:rgba(16,185,129,.2);--tw-shadow:var(--tw-shadow-colored)}.shadow-indigo-200{--tw-shadow-color:#c7d2fe;--tw-shadow:var(--tw-shadow-colored)}.shadow-indigo-500\/20{--tw-shadow-color:rgba(99,102,241,.2);--tw-shadow:var(--tw-shadow-colored)}.shadow-indigo-500\/25{--tw-shadow-color:rgba(99,102,241,.25);--tw-shadow:var(--tw-shadow-colored)}.shadow-slate-900\/20{--tw-shadow-color:rgba(15,23,42,.2);--tw-shadow:var(--tw-shadow-colored)}.blur{--tw-blur:blur(8px)}.blur,.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur-md{--tw-backdrop-blur:blur(12px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-colors{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.duration-200{transition-duration:.2s}.duration-300{transition-duration:.3s}.duration-500{transition-duration:.5s}.hover\:border-indigo-200:hover{--tw-border-opacity:1;border-color:rgb(199 210 254/var(--tw-border-opacity,1))}.hover\:border-indigo-300:hover{--tw-border-opacity:1;border-color:rgb(165 180 252/var(--tw-border-opacity,1))}.hover\:bg-rose-100:hover{--tw-bg-opacity:1;background-color:rgb(255 228 230/var(--tw-bg-opacity,1))}.hover\:bg-rose-50:hover{--tw-bg-opacity:1;background-color:rgb(255 241 242/var(--tw-bg-opacity,1))}.hover\:bg-slate-200:hover{--tw-bg-opacity:1;background-color:rgb(226 232 240/var(--tw-bg-opacity,1))}.hover\:bg-slate-200\/70:hover{background-color:rgba(226,232,240,.7)}.hover\:from-amber-400:hover{--tw-gradient-from:#fbbf24 var(--tw-gradient-from-position);--tw-gradient-to:rgba(251,191,36,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.hover\:from-indigo-500:hover{--tw-gradient-from:#6366f1 var(--tw-gradient-from-position);--tw-gradient-to:rgba(99,102,241,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.hover\:to-orange-400:hover{--tw-gradient-to:#fb923c var(--tw-gradient-to-position)}.hover\:to-violet-500:hover{--tw-gradient-to:#8b5cf6 var(--tw-gradient-to-position)}.hover\:text-rose-600:hover{--tw-text-opacity:1;color:rgb(225 29 72/var(--tw-text-opacity,1))}.hover\:text-slate-900:hover{--tw-text-opacity:1;color:rgb(15 23 42/var(--tw-text-opacity,1))}.active\:scale-95:active{--tw-scale-x:.95;--tw-scale-y:.95;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.disabled\:pointer-events-none:disabled{pointer-events:none}.disabled\:opacity-40:disabled{opacity:.4}.disabled\:shadow-none:disabled{--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.group:hover .group-hover\:text-indigo-500{--tw-text-opacity:1;color:rgb(99 102 241/var(--tw-text-opacity,1))}@media (min-width:640px){.sm\:h-56{height:14rem}.sm\:w-56{width:14rem}.sm\:grid-cols-9{grid-template-columns:repeat(9,minmax(0,1fr))}.sm\:flex-row{flex-direction:row}.sm\:p-6{padding:1.5rem}.sm\:p-8{padding:2rem}.sm\:text-2xl{font-size:1.5rem;line-height:2rem}.sm\:text-9xl{font-size:8rem;line-height:1}.sm\:text-lg{font-size:1.125rem;line-height:1.75rem}.sm\:text-sm{font-size:.875rem;line-height:1.25rem}}@media (min-width:768px){.md\:p-8{padding:2rem}}@media (min-width:1024px){.lg\:col-span-5{grid-column:span 5/span 5}.lg\:col-span-7{grid-column:span 7/span 7}.lg\:grid-cols-12{grid-template-columns:repeat(12,minmax(0,1fr))}.lg\:grid-cols-7{grid-template-columns:repeat(7,minmax(0,1fr))}}
+@font-face{font-family:"Phosphor";src:url(data:font/woff2;base64,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) format("woff2");font-weight:normal;font-style:normal;font-display:block}
+.ph{font-family:"Phosphor"!important;speak:never;font-style:normal;font-weight:normal;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+.ph.ph-arrows-counter-clockwise:before{content:"\e096"}
+.ph.ph-check-circle:before{content:"\e184"}
+.ph.ph-clock-counter-clockwise:before{content:"\e1a0"}
+.ph.ph-confetti:before{content:"\e81a"}
+.ph.ph-grid-four:before{content:"\e296"}
+.ph.ph-infinity:before{content:"\e634"}
+.ph.ph-info:before{content:"\e2ce"}
+.ph.ph-pause:before{content:"\e39e"}
+.ph.ph-play:before{content:"\e3d0"}
+.ph.ph-sliders-horizontal:before{content:"\e434"}
+.ph.ph-sort-ascending:before{content:"\e444"}
+.ph.ph-sparkle:before{content:"\e6a2"}
+.ph.ph-speaker-high:before{content:"\e44a"}
+.ph.ph-speaker-slash:before{content:"\e45a"}
+.ph.ph-trash:before{content:"\e4a6"}
+@font-face{font-family:"Phosphor-Bold";src:url(data:font/woff2;base64,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) format("woff2");font-weight:normal;font-style:normal;font-display:block}
+.ph-bold{font-family:"Phosphor-Bold"!important;speak:never;font-style:normal;font-weight:normal;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+.ph-bold.ph-arrows-counter-clockwise:before{content:"\e096"}
+.ph-bold.ph-check-circle:before{content:"\e184"}
+.ph-bold.ph-clock-counter-clockwise:before{content:"\e1a0"}
+.ph-bold.ph-confetti:before{content:"\e81a"}
+.ph-bold.ph-grid-four:before{content:"\e296"}
+.ph-bold.ph-infinity:before{content:"\e634"}
+.ph-bold.ph-info:before{content:"\e2ce"}
+.ph-bold.ph-pause:before{content:"\e39e"}
+.ph-bold.ph-play:before{content:"\e3d0"}
+.ph-bold.ph-sliders-horizontal:before{content:"\e434"}
+.ph-bold.ph-sort-ascending:before{content:"\e444"}
+.ph-bold.ph-sparkle:before{content:"\e6a2"}
+.ph-bold.ph-speaker-high:before{content:"\e44a"}
+.ph-bold.ph-speaker-slash:before{content:"\e45a"}
+.ph-bold.ph-trash:before{content:"\e4a6"}
+@font-face{font-family:"Phosphor-Fill";src:url(data:font/woff2;base64,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) format("woff2");font-weight:normal;font-style:normal;font-display:block}
+.ph-fill{font-family:"Phosphor-Fill"!important;speak:never;font-style:normal;font-weight:normal;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+.ph-fill.ph-arrows-counter-clockwise:before{content:"\e096"}
+.ph-fill.ph-check-circle:before{content:"\e184"}
+.ph-fill.ph-clock-counter-clockwise:before{content:"\e1a0"}
+.ph-fill.ph-confetti:before{content:"\e81a"}
+.ph-fill.ph-grid-four:before{content:"\e296"}
+.ph-fill.ph-infinity:before{content:"\e634"}
+.ph-fill.ph-info:before{content:"\e2ce"}
+.ph-fill.ph-pause:before{content:"\e39e"}
+.ph-fill.ph-play:before{content:"\e3d0"}
+.ph-fill.ph-sliders-horizontal:before{content:"\e434"}
+.ph-fill.ph-sort-ascending:before{content:"\e444"}
+.ph-fill.ph-sparkle:before{content:"\e6a2"}
+.ph-fill.ph-speaker-high:before{content:"\e44a"}
+.ph-fill.ph-speaker-slash:before{content:"\e45a"}
+.ph-fill.ph-trash:before{content:"\e4a6"}
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: radial-gradient(circle at top left, #eef2ff 0%, #f8fafc 45%, #f3e8ff 100%);
+            min-height: 100vh;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* 滚动时的动感模糊与微抖动效果 */
+        .rolling-letter {
+            animation: rollJitter 0.12s infinite alternate ease-in-out;
+            filter: blur(0.8px);
+        }
+
+        @keyframes rollJitter {
+            0% {
+                transform: translateY(-6px) scale(0.96);
+            }
+            100% {
+                transform: translateY(6px) scale(1.04);
+            }
+        }
+
+        /* 暂停选中时的高亮光晕卡片效果 */
+        .selected-card {
+            box-shadow: 0 20px 50px -12px rgba(79, 70, 229, 0.35), 0 0 0 4px rgba(99, 102, 241, 0.25);
+        }
+
+        /* 自定义滚动条美化 */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col justify-between p-4 sm:p-6 md:p-8 relative overflow-x-hidden">
+
+    <!-- 粒子庆祝画布 (用于不重复模式全部抽完或特殊高亮) -->
+    <canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none z-50 w-full h-full"></canvas>
+
+    <!-- 顶部自定义轻量提示框 (替代原生 alert) -->
+    <div id="toast-container" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- 主容器 -->
+    <main class="max-w-4xl w-full mx-auto flex flex-col gap-6 my-auto">
+        
+        <!-- 顶部标题与状态栏 -->
+        <header class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white/80 backdrop-blur-md px-6 py-4 rounded-2xl shadow-sm border border-slate-200/80">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-md shadow-indigo-200">
+                    <i class="ph-bold ph-sort-ascending text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
+                        A-Z 字母随机抽取器
+                    </h1>
+                    <p class="text-xs text-slate-500 font-medium">支持按 <kbd class="px-1.5 py-0.5 text-[11px] font-semibold bg-slate-100 border border-slate-300 rounded text-slate-700 shadow-inner">Space 空格键</kbd> 快捷播放 / 暂停</p>
+                </div>
+            </div>
+
+            <!-- 辅助工具按钮：音效开关与全部重置 -->
+            <div class="flex items-center gap-2.5">
+                <button id="btn-sound" onclick="toggleSound()" title="开启/关闭音效" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-sm font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 transition-all active:scale-95">
+                    <i id="icon-sound" class="ph-fill ph-speaker-high text-lg text-indigo-600"></i>
+                    <span id="text-sound">音效开启</span>
+                </button>
+                <button onclick="resetAll()" title="重置所有状态与历史记录" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-sm font-medium bg-rose-50 hover:bg-rose-100 text-rose-600 transition-all active:scale-95">
+                    <i class="ph-bold ph-arrows-counter-clockwise text-lg"></i>
+                    <span>全部重置</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- 核心展示与控制区域 -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            
+            <!-- 左侧/主视觉：醒目大卡片 + 播放暂停按钮 (占7列) -->
+            <div class="lg:col-span-7 flex flex-col justify-between bg-white/90 backdrop-blur-md rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200/80 relative overflow-hidden">
+                
+                <!-- 顶部装饰状态标签 -->
+                <div class="flex items-center justify-between z-10">
+                    <span id="status-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600">
+                        <span id="status-dot" class="w-2 h-2 rounded-full bg-slate-400"></span>
+                        <span id="status-text">准备就绪</span>
+                    </span>
+                    <span id="remaining-badge" class="text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                        剩余可抽: <strong id="remaining-count" class="text-indigo-600">26</strong> / 26
+                    </span>
+                </div>
+
+                <!-- 中央醒目字母大卡片 -->
+                <div class="my-6 flex flex-col items-center justify-center">
+                    <div id="letter-card" onclick="togglePlayPause()" title="点击卡片也可切换播放/暂停"
+                         class="w-48 h-48 sm:w-56 sm:h-56 rounded-3xl bg-gradient-to-br from-slate-50 to-indigo-50/60 border-2 border-indigo-100 flex flex-col items-center justify-center relative cursor-pointer transition-all duration-300 shadow-inner hover:border-indigo-300 group">
+                        
+                        <!-- 背景微光装饰 -->
+                        <div id="card-glow" class="absolute inset-0 rounded-3xl bg-gradient-to-br from-indigo-500/0 to-violet-500/0 transition-all duration-500 pointer-events-none"></div>
+
+                        <!-- 主字母显示 -->
+                        <span id="main-letter" class="text-8xl sm:text-9xl font-black tracking-tighter text-slate-800 select-none transition-colors duration-200">
+                            A
+                        </span>
+
+                        <!-- 字母序号角标 (如 A = #1) -->
+                        <span id="letter-index" class="mt-1 text-xs font-bold tracking-widest uppercase text-slate-400 group-hover:text-indigo-500 transition-colors">
+                            LETTER #01
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 播放与暂停控制按钮组 -->
+                <div class="grid grid-cols-2 gap-4 z-10">
+                    <!-- 播放（开始滚动）按钮 -->
+                    <button id="btn-play" onclick="startRolling()" 
+                            class="flex items-center justify-center gap-2.5 py-4 px-6 rounded-2xl font-bold text-base sm:text-lg text-white bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 shadow-lg shadow-indigo-500/25 transition-all duration-200 active:scale-95 disabled:opacity-40 disabled:pointer-events-none disabled:shadow-none">
+                        <i class="ph-fill ph-play text-2xl"></i>
+                        <span>播放滚动</span>
+                    </button>
+
+                    <!-- 暂停（停止抽取）按钮 -->
+                    <button id="btn-pause" onclick="pauseRolling()" disabled
+                            class="flex items-center justify-center gap-2.5 py-4 px-6 rounded-2xl font-bold text-base sm:text-lg text-white bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 shadow-lg shadow-amber-500/25 transition-all duration-200 active:scale-95 disabled:opacity-40 disabled:pointer-events-none disabled:shadow-none">
+                        <i class="ph-fill ph-pause text-2xl"></i>
+                        <span>暂停抽取</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 右侧：参数设置与26字母实时状态池 (占5列) -->
+            <div class="lg:col-span-5 flex flex-col justify-between gap-6">
+                
+                <!-- 控制面板卡片 -->
+                <div class="bg-white/90 backdrop-blur-md rounded-3xl p-6 shadow-sm border border-slate-200/80 flex flex-col gap-5">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                        <i class="ph-bold ph-sliders-horizontal text-indigo-500 text-base"></i>
+                        抽取参数设置
+                    </h2>
+
+                    <!-- 1. 滚动速度调节 -->
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold text-slate-700 flex items-center justify-between">
+                            <span>滚动速度</span>
+                            <span id="speed-label-desc" class="text-xs font-normal text-slate-400">中速 (80ms/次)</span>
+                        </label>
+                        <div class="grid grid-cols-3 gap-2 bg-slate-100 p-1.5 rounded-xl">
+                            <button onclick="setSpeed('slow')" id="speed-slow" class="speed-btn py-2 px-3 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 transition-all">
+                                🐢 慢速
+                            </button>
+                            <button onclick="setSpeed('medium')" id="speed-medium" class="speed-btn py-2 px-3 rounded-lg text-xs sm:text-sm font-semibold bg-white text-indigo-600 shadow-sm transition-all">
+                                ⚡ 中速
+                            </button>
+                            <button onclick="setSpeed('fast')" id="speed-fast" class="speed-btn py-2 px-3 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 transition-all">
+                                🚀 快速
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 2. 抽取模式切换 -->
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold text-slate-700 flex items-center justify-between">
+                            <span>抽取模式</span>
+                            <span id="mode-label-desc" class="text-xs font-normal text-slate-400">每次从全部26个字母中随机</span>
+                        </label>
+                        <div class="grid grid-cols-2 gap-2 bg-slate-100 p-1.5 rounded-xl">
+                            <button onclick="setMode('repeat')" id="mode-repeat" class="mode-btn py-2.5 px-3 rounded-lg text-xs sm:text-sm font-semibold bg-white text-indigo-600 shadow-sm transition-all flex items-center justify-center gap-1.5">
+                                <i class="ph-bold ph-infinity text-base"></i>
+                                <span>允许重复</span>
+                            </button>
+                            <button onclick="setMode('unique')" id="mode-unique" class="mode-btn py-2.5 px-3 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 transition-all flex items-center justify-center gap-1.5">
+                                <i class="ph-bold ph-check-circle text-base"></i>
+                                <span>不重复抽取</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 26个英文字母池状态预览 -->
+                <div class="bg-white/90 backdrop-blur-md rounded-3xl p-6 shadow-sm border border-slate-200/80 flex-1 flex flex-col justify-between gap-3">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                            <i class="ph-bold ph-grid-four text-indigo-500 text-base"></i>
+                            A-Z 字母池状态
+                        </h2>
+                        <span class="text-[11px] text-slate-400 font-medium">高亮表示已抽中</span>
+                    </div>
+
+                    <!-- 26个字母网格 -->
+                    <div id="alphabet-pool" class="grid grid-cols-7 sm:grid-cols-9 lg:grid-cols-7 gap-1.5 my-auto">
+                        <!-- 由 JS 动态生成 A-Z -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 底部：已停留在的字母历史记录 -->
+        <section class="bg-white/90 backdrop-blur-md rounded-3xl p-6 shadow-sm border border-slate-200/80 flex flex-col gap-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2.5">
+                    <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                        <i class="ph-fill ph-clock-counter-clockwise text-indigo-600 text-xl"></i>
+                        已停留字母历史记录
+                    </h2>
+                    <span id="history-count-badge" class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-indigo-50 text-indigo-600">
+                        共 0 次
+                    </span>
+                </div>
+
+                <!-- 清空重置按钮 -->
+                <button id="btn-clear-history" onclick="clearHistory()" disabled
+                        class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-rose-600 bg-slate-100 hover:bg-rose-50 transition-all active:scale-95 disabled:opacity-40 disabled:pointer-events-none">
+                    <i class="ph-bold ph-trash text-base"></i>
+                    <span>清空历史记录</span>
+                </button>
+            </div>
+
+            <!-- 历史记录列表容器 -->
+            <div id="history-list" class="min-h-[76px] max-h-44 overflow-y-auto p-3 rounded-2xl bg-slate-50/80 border border-slate-200/60 flex flex-wrap items-center gap-2.5">
+                <!-- 空状态提示 -->
+                <div id="history-empty" class="w-full py-4 text-center text-sm text-slate-400 flex items-center justify-center gap-2">
+                    <i class="ph ph-sparkle text-lg"></i>
+                    <span>暂无抽取记录，点击上方「播放滚动」然后「暂停抽取」即可生成记录</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 页脚版权与说明 -->
+    <footer class="text-center text-xs text-slate-400 py-4">
+        A-Z Random Letter Roller &bull; 现代响应式课堂点名 / 互动抽奖工具
+    </footer>
+
+    <!-- 核心逻辑脚本 -->
+    <script>
+        // ==================== 基础常量与状态配置 ====================
+        const ALL_LETTERS = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
+        
+        // 三档速度对应的时间间隔 (毫秒)
+        const SPEED_CONFIG = {
+            slow: { interval: 160, desc: '慢速 (160ms/次)' },
+            medium: { interval: 75, desc: '中速 (75ms/次)' },
+            fast: { interval: 32, desc: '快速 (32ms/次)' }
+        };
+
+        // 应用运行状态
+        let state = {
+            isRolling: false,
+            timerId: null,
+            currentLetter: 'A',
+            speed: 'medium',        // 'slow' | 'medium' | 'fast'
+            mode: 'repeat',         // 'repeat' (允许重复) | 'unique' (不重复抽取)
+            availableLetters: [...ALL_LETTERS], // 不重复模式下的剩余可用字母池
+            history: [],            // 抽取历史 [{ letter, time, order }]
+            soundEnabled: true      // 是否开启合成音效
+        };
+
+        // ==================== Web Audio API 音效合成器 (无需外部音频资源) ====================
+        let audioCtx = null;
+
+        function initAudioContext() {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) {
+                    audioCtx = new AudioContextClass();
+                }
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        // 播放滚动时的清脆滴答声
+        function playTickSound() {
+            if (!state.soundEnabled) return;
+            try {
+                initAudioContext();
+                if (!audioCtx) return;
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                // 随机微调频率让滚动声更有灵动感
+                osc.frequency.setValueAtTime(520 + Math.random() * 120, audioCtx.currentTime);
+                
+                gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.035);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.04);
+            } catch (e) {
+                // 忽略部分浏览器未交互前的音频限制错误
+            }
+        }
+
+        // 播放暂停定格时的揭晓和弦音效
+        function playWinSound() {
+            if (!state.soundEnabled) return;
+            try {
+                initAudioContext();
+                if (!audioCtx) return;
+
+                const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+                notes.forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    const startTime = audioCtx.currentTime + idx * 0.055;
+                    osc.frequency.setValueAtTime(freq, startTime);
+
+                    gain.gain.setValueAtTime(0.12, startTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.35);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    osc.start(startTime);
+                    osc.stop(startTime + 0.36);
+                });
+            } catch (e) {}
+        }
+
+        // ==================== DOM 元素引用 ====================
+        const mainLetterEl = document.getElementById('main-letter');
+        const letterIndexEl = document.getElementById('letter-index');
+        const letterCardEl = document.getElementById('letter-card');
+        const cardGlowEl = document.getElementById('card-glow');
+        const btnPlay = document.getElementById('btn-play');
+        const btnPause = document.getElementById('btn-pause');
+        const statusBadge = document.getElementById('status-badge');
+        const statusDot = document.getElementById('status-dot');
+        const statusText = document.getElementById('status-text');
+        const remainingCountEl = document.getElementById('remaining-count');
+        const alphabetPoolEl = document.getElementById('alphabet-pool');
+        const historyListEl = document.getElementById('history-list');
+        const historyCountBadge = document.getElementById('history-count-badge');
+        const btnClearHistory = document.getElementById('btn-clear-history');
+
+        // ==================== 初始化与渲染函数 ====================
+        function initApp() {
+            renderAlphabetPool();
+            updateRemainingPoolUI();
+            updateLetterDisplay('A', false);
+        }
+
+        // 渲染右侧26个英文字母状态小方块
+        function renderAlphabetPool() {
+            alphabetPoolEl.innerHTML = '';
+            const drawnSet = new Set(state.history.map(item => item.letter));
+
+            ALL_LETTERS.forEach(letter => {
+                const isDrawn = drawnSet.has(letter);
+                const isAvailable = state.mode === 'repeat' ? true : state.availableLetters.includes(letter);
+
+                const item = document.createElement('div');
+                item.id = `pool-letter-${letter}`;
+                
+                let baseClass = 'h-8 rounded-lg text-xs font-bold flex items-center justify-center transition-all duration-200 select-none ';
+                if (state.mode === 'unique' && !isAvailable) {
+                    // 不重复模式下已经被抽走
+                    baseClass += 'bg-indigo-600 text-white shadow-sm scale-95';
+                } else if (isDrawn) {
+                    // 允许重复模式下曾被抽中过
+                    baseClass += 'bg-indigo-100 text-indigo-700 border border-indigo-200';
+                } else {
+                    // 尚未抽中
+                    baseClass += 'bg-slate-100 text-slate-600 hover:bg-slate-200/70';
+                }
+
+                item.className = baseClass;
+                item.textContent = letter;
+                alphabetPoolEl.appendChild(item);
+            });
+        }
+
+        // 更新中央大卡片字母显示
+        function updateLetterDisplay(letter, isFinalPick = false) {
+            state.currentLetter = letter;
+            mainLetterEl.textContent = letter;
+            const charNum = letter.charCodeAt(0) - 64;
+            letterIndexEl.textContent = `LETTER #${String(charNum).padStart(2, '0')}`;
+
+            if (isFinalPick) {
+                // 暂停定格时触发弹跳高亮动画
+                mainLetterEl.classList.remove('rolling-letter', 'text-slate-800');
+                mainLetterEl.classList.add('text-indigo-600', 'animate-pop');
+                letterCardEl.classList.add('selected-card', 'border-indigo-500');
+                cardGlowEl.className = 'absolute inset-0 rounded-3xl bg-gradient-to-br from-indigo-500/10 to-violet-500/15 transition-all duration-500 pointer-events-none';
+                
+                setTimeout(() => {
+                    mainLetterEl.classList.remove('animate-pop');
+                }, 500);
+            }
+        }
+
+        // 更新剩余可抽取字母数量显示
+        function updateRemainingPoolUI() {
+            if (state.mode === 'repeat') {
+                remainingCountEl.textContent = '26';
+            } else {
+                remainingCountEl.textContent = state.availableLetters.length;
+            }
+        }
+
+        // ==================== 播放与暂停核心逻辑 ====================
+
+        // 开始滚动
+        function startRolling() {
+            if (state.isRolling) return;
+
+            // 检查不重复模式下是否26个字母已经全部抽完
+            if (state.mode === 'unique' && state.availableLetters.length === 0) {
+                showToast('26个字母已全部抽取完毕！已为您自动重置新一轮字母池。', 'info');
+                state.availableLetters = [...ALL_LETTERS];
+                renderAlphabetPool();
+                updateRemainingPoolUI();
+            }
+
+            // 如果不重复模式下只剩最后1个字母，也先滚动一下增强仪式感
+            state.isRolling = true;
+
+            // 更新按钮状态
+            btnPlay.disabled = true;
+            btnPause.disabled = false;
+
+            // 更新顶部状态指示器
+            statusBadge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-600';
+            statusDot.className = 'w-2 h-2 rounded-full bg-indigo-600 animate-ping';
+            statusText.textContent = '正在随机滚动...';
+
+            // 卡片进入动感滚动样式
+            mainLetterEl.classList.remove('text-indigo-600', 'animate-pop');
+            mainLetterEl.classList.add('rolling-letter', 'text-slate-800');
+            letterCardEl.classList.remove('selected-card', 'border-indigo-500');
+            cardGlowEl.className = 'absolute inset-0 rounded-3xl bg-gradient-to-br from-indigo-500/5 to-violet-500/5 transition-all duration-300 pointer-events-none';
+
+            // 启动定时滚动
+            runTimerLoop();
+        }
+
+        function runTimerLoop() {
+            if (state.timerId) clearInterval(state.timerId);
+            const intervalMs = SPEED_CONFIG[state.speed].interval;
+
+            state.timerId = setInterval(() => {
+                const pool = state.mode === 'unique' ? state.availableLetters : ALL_LETTERS;
+                if (pool.length === 0) return;
+
+                let nextLetter;
+                if (pool.length === 1) {
+                    // 当只剩1个可用字母时，为了让滚动看起来有动感，视觉上穿插其它字母，暂停时必定落在该唯一字母上
+                    const randomVisual = ALL_LETTERS[Math.floor(Math.random() * ALL_LETTERS.length)];
+                    nextLetter = randomVisual;
+                } else {
+                    // 避免连续两次展示完全相同的字母，确保视觉滚动流畅
+                    do {
+                        nextLetter = pool[Math.floor(Math.random() * pool.length)];
+                    } while (nextLetter === state.currentLetter && pool.length > 1);
+                }
+
+                updateLetterDisplay(nextLetter, false);
+                playTickSound();
+            }, intervalMs);
+        }
+
+        // 暂停并定格抽取结果
+        function pauseRolling() {
+            if (!state.isRolling) return;
+
+            clearInterval(state.timerId);
+            state.timerId = null;
+            state.isRolling = false;
+
+            // 确定最终停留在哪个字母
+            const pool = state.mode === 'unique' ? state.availableLetters : ALL_LETTERS;
+            let chosenLetter = state.currentLetter;
+
+            // 在不重复模式下，确保最终定格的字母一定属于可用池（处理只剩1个字母时的视觉穿插情况）
+            if (state.mode === 'unique') {
+                if (!pool.includes(chosenLetter)) {
+                    chosenLetter = pool[Math.floor(Math.random() * pool.length)];
+                }
+                // 从可用池中移除已抽中的字母
+                state.availableLetters = state.availableLetters.filter(l => l !== chosenLetter);
+            }
+
+            // 视觉高亮与音效
+            updateLetterDisplay(chosenLetter, true);
+            playWinSound();
+
+            // 更新按钮状态
+            btnPlay.disabled = false;
+            btnPause.disabled = true;
+
+            // 更新顶部状态标签
+            statusBadge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-600';
+            statusDot.className = 'w-2 h-2 rounded-full bg-emerald-500';
+            statusText.textContent = `已定格字母: ${chosenLetter}`;
+
+            // 记录到历史记录中
+            addHistoryRecord(chosenLetter);
+            renderAlphabetPool();
+            updateRemainingPoolUI();
+
+            // 如果不重复模式下刚好抽完了全部26个字母，触发礼花庆祝
+            if (state.mode === 'unique' && state.availableLetters.length === 0) {
+                launchConfetti();
+                showToast('🎉 恭喜！26个英文字母已全部抽取完毕！', 'success');
+            }
+        }
+
+        // 切换播放/暂停 (用于空格键或点击大卡片)
+        function togglePlayPause() {
+            if (state.isRolling) {
+                pauseRolling();
+            } else {
+                startRolling();
+            }
+        }
+
+        // ==================== 参数调节（速度与模式） ====================
+
+        // 设置滚动速度
+        function setSpeed(speedKey) {
+            if (!SPEED_CONFIG[speedKey]) return;
+            state.speed = speedKey;
+
+            // 更新按钮高亮样式
+            ['slow', 'medium', 'fast'].forEach(key => {
+                const btn = document.getElementById(`speed-${key}`);
+                if (key === speedKey) {
+                    btn.className = 'speed-btn py-2 px-3 rounded-lg text-xs sm:text-sm font-semibold bg-white text-indigo-600 shadow-sm transition-all';
+                } else {
+                    btn.className = 'speed-btn py-2 px-3 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all';
+                }
+            });
+
+            document.getElementById('speed-label-desc').textContent = SPEED_CONFIG[speedKey].desc;
+
+            // 如果当前正在滚动中，实时无缝应用新速度
+            if (state.isRolling) {
+                runTimerLoop();
+            }
+        }
+
+        // 设置抽取模式
+        function setMode(modeKey) {
+            if (state.mode === modeKey) return;
+            state.mode = modeKey;
+
+            const btnRepeat = document.getElementById('mode-repeat');
+            const btnUnique = document.getElementById('mode-unique');
+            const modeDesc = document.getElementById('mode-label-desc');
+
+            if (modeKey === 'repeat') {
+                btnRepeat.className = 'mode-btn py-2.5 px-3 rounded-lg text-xs sm:text-sm font-semibold bg-white text-indigo-600 shadow-sm transition-all flex items-center justify-center gap-1.5';
+                btnUnique.className = 'mode-btn py-2.5 px-3 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all flex items-center justify-center gap-1.5';
+                modeDesc.textContent = '每次从全部26个字母中随机';
+                showToast('已切换为「允许重复」抽取模式', 'info');
+            } else {
+                btnUnique.className = 'mode-btn py-2.5 px-3 rounded-lg text-xs sm:text-sm font-semibold bg-white text-indigo-600 shadow-sm transition-all flex items-center justify-center gap-1.5';
+                btnRepeat.className = 'mode-btn py-2.5 px-3 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all flex items-center justify-center gap-1.5';
+                modeDesc.textContent = '抽过的字母不再出现，直到26个抽完';
+                
+                // 根据当前历史记录同步过滤掉已经抽过的字母
+                const drawnLetters = new Set(state.history.map(item => item.letter));
+                state.availableLetters = ALL_LETTERS.filter(l => !drawnLetters.has(l));
+                showToast(`已切换为「不重复抽取」，当前剩余 ${state.availableLetters.length} 个字母`, 'info');
+            }
+
+            renderAlphabetPool();
+            updateRemainingPoolUI();
+        }
+
+        // ==================== 历史记录管理 ====================
+
+        function addHistoryRecord(letter) {
+            const now = new Date();
+            const timeStr = now.toTimeString().split(' ')[0]; // HH:MM:SS
+            const record = {
+                order: state.history.length + 1,
+                letter: letter,
+                time: timeStr
+            };
+            state.history.unshift(record); // 最新抽中的排在最前面
+            renderHistoryList();
+        }
+
+        function renderHistoryList() {
+            historyCountBadge.textContent = `共 ${state.history.length} 次`;
+            btnClearHistory.disabled = state.history.length === 0;
+
+            if (state.history.length === 0) {
+                historyListEl.innerHTML = `
+                    <div id="history-empty" class="w-full py-4 text-center text-sm text-slate-400 flex items-center justify-center gap-2">
+                        <i class="ph ph-sparkle text-lg"></i>
+                        <span>暂无抽取记录，点击上方「播放滚动」然后「暂停抽取」即可生成记录</span>
+                    </div>
+                `;
+                return;
+            }
+
+            historyListEl.innerHTML = '';
+            state.history.forEach((item, index) => {
+                const badge = document.createElement('div');
+                const isLatest = index === 0;
+                
+                badge.className = `inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border transition-all ${
+                    isLatest 
+                        ? 'bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-500/20 animate-pop' 
+                        : 'bg-white text-slate-700 border-slate-200 hover:border-indigo-200'
+                }`;
+
+                badge.innerHTML = `
+                    <span class="text-xs font-semibold ${isLatest ? 'text-indigo-200' : 'text-slate-400'}">#${item.order}</span>
+                    <span class="text-lg font-extrabold tracking-tight">${item.letter}</span>
+                    <span class="text-[10px] ${isLatest ? 'text-indigo-200' : 'text-slate-400'}">${item.time}</span>
+                `;
+                historyListEl.appendChild(badge);
+            });
+        }
+
+        // 清空历史记录并重置可用字母池
+        function clearHistory() {
+            state.history = [];
+            state.availableLetters = [...ALL_LETTERS];
+            renderHistoryList();
+            renderAlphabetPool();
+            updateRemainingPoolUI();
+            showToast('历史记录与字母池已清空重置', 'info');
+        }
+
+        // 全部重置（停止滚动、清空历史、恢复默认字母A）
+        function resetAll() {
+            if (state.isRolling) {
+                clearInterval(state.timerId);
+                state.timerId = null;
+                state.isRolling = false;
+            }
+
+            state.history = [];
+            state.availableLetters = [...ALL_LETTERS];
+            
+            btnPlay.disabled = false;
+            btnPause.disabled = true;
+
+            mainLetterEl.classList.remove('rolling-letter', 'text-indigo-600', 'animate-pop');
+            mainLetterEl.classList.add('text-slate-800');
+            letterCardEl.classList.remove('selected-card', 'border-indigo-500');
+            cardGlowEl.className = 'absolute inset-0 rounded-3xl bg-gradient-to-br from-indigo-500/0 to-violet-500/0 transition-all duration-500 pointer-events-none';
+
+            statusBadge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600';
+            statusDot.className = 'w-2 h-2 rounded-full bg-slate-400';
+            statusText.textContent = '准备就绪';
+
+            updateLetterDisplay('A', false);
+            renderHistoryList();
+            renderAlphabetPool();
+            updateRemainingPoolUI();
+            showToast('所有状态已恢复初始设置', 'info');
+        }
+
+        // 切换音效开关
+        function toggleSound() {
+            state.soundEnabled = !state.soundEnabled;
+            const iconSound = document.getElementById('icon-sound');
+            const textSound = document.getElementById('text-sound');
+
+            if (state.soundEnabled) {
+                iconSound.className = 'ph-fill ph-speaker-high text-lg text-indigo-600';
+                textSound.textContent = '音效开启';
+                playTickSound();
+            } else {
+                iconSound.className = 'ph-fill ph-speaker-slash text-lg text-slate-400';
+                textSound.textContent = '音效关闭';
+            }
+        }
+
+        // ==================== 键盘快捷键监听 (Space 空格键) ====================
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                // 防止空格键触发页面滚动或焦点按钮二次点击
+                e.preventDefault();
+                if (document.activeElement && document.activeElement.tagName === 'BUTTON') {
+                    document.activeElement.blur();
+                }
+                togglePlayPause();
+            }
+        });
+
+        // ==================== 轻量级 Toast 消息提示组件 ====================
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const bgClass = type === 'success' 
+                ? 'bg-emerald-600 text-white shadow-emerald-500/20' 
+                : 'bg-slate-800/95 text-white shadow-slate-900/20';
+
+            toast.className = `px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold shadow-lg backdrop-blur-md flex items-center gap-2 transition-all duration-300 transform translate-y-0 opacity-100 ${bgClass}`;
+            toast.innerHTML = `
+                <i class="ph-fill ${type === 'success' ? 'ph-confetti' : 'ph-info'} text-base"></i>
+                <span>${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', '-translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 2600);
+        }
+
+        // ==================== Canvas 礼花彩带特效 ====================
+        function launchConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            const colors = ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#3b82f6'];
+
+            for (let i = 0; i < 90; i++) {
+                particles.push({
+                    x: canvas.width / 2,
+                    y: canvas.height / 2,
+                    vx: (Math.random() - 0.5) * 18,
+                    vy: (Math.random() - 0.7) * 18 - 4,
+                    size: Math.random() * 8 + 4,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    rotation: Math.random() * 360,
+                    vr: (Math.random() - 0.5) * 10,
+                    alpha: 1
+                });
+            }
+
+            function renderFrame() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let active = false;
+
+                particles.forEach(p => {
+                    if (p.alpha <= 0) return;
+                    active = true;
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.38; // 重力
+                    p.rotation += p.vr;
+                    p.alpha -= 0.012;
+
+                    ctx.save();
+                    ctx.globalAlpha = Math.max(0, p.alpha);
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate((p.rotation * Math.PI) / 180);
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                    ctx.restore();
+                });
+
+                if (active) {
+                    requestAnimationFrame(renderFrame);
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
+            }
+
+            requestAnimationFrame(renderFrame);
+        }
+
+        // 窗口尺寸变化时同步更新彩带画布大小
+        window.addEventListener('resize', () => {
+            const canvas = document.getElementById('confetti-canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // 启动初始化
+        window.onload = initApp;
+    </script>
+</body>
+</html>
