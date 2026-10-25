@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-Z 字母随机滚动抽取器</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- 引入 Phosphor Icons 图标库 -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    animation: {
+                        'pop': 'pop 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+                        'pulse-glow': 'pulseGlow 2s infinite',
+                    },
+                    keyframes: {
+                        pop: {
+                            '0%': { transform: 'scale(0.75)', opacity: '0.5' },
+                            '60%': { transform: 'scale(1.12)' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 25px -5px rgba(99, 102, 241, 0.3)' },
+                            '50%': { boxShadow: '0 0 40px 5px rgba(99, 102, 241, 0.55)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: radial-gradient(circle at top left, #eef2ff 0%, #f8fafc 45%, #f3e8ff 100%);
+            min-height: 100vh;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* 滚动时的动感模糊与微抖动效果 */
+        .rolling-letter {
+            animation: rollJitter 0.12s infinite alternate ease-in-out;
+            filter: blur(0.8px);
+        }
+
+        @keyframes rollJitter {
+            0% {
+                transform: translateY(-6px) scale(0.96);
+            }
+            100% {
+                transform: translateY(6px) scale(1.04);
+            }
+        }
+
+        /* 暂停选中时的高亮光晕卡片效果 */
+        .selected-card {
+            box-shadow: 0 20px 50px -12px rgba(79, 70, 229, 0.35), 0 0 0 4px rgba(99, 102, 241, 0.25);
+        }
+
+        /* 自定义滚动条美化 */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased flex flex-col justify-between p-4 sm:p-6 md:p-8 relative overflow-x-hidden">
+
+    <!-- 粒子庆祝画布 (用于不重复模式全部抽完或特殊高亮) -->
+    <canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none z-50 w-full h-full"></canvas>
+
+    <!-- 顶部自定义轻量提示框 (替代原生 alert) -->
+    <div id="toast-container" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- 主容器 -->
+    <main class="max-w-4xl w-full mx-auto flex flex-col gap-6 my-auto">
+        
+        <!-- 顶部标题与状态栏 -->
+        <header class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white/80 backdrop-blur-md px-6 py-4 rounded-2xl shadow-sm border border-slate-200/80">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-md shadow-indigo-200">
+                    <i class="ph-bold ph-sort-ascending text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
+                        A-Z 字母随机抽取器
+                    </h1>
+                    <p class="text-xs text-slate-500 font-medium">支持按 <kbd class="px-1.5 py-0.5 text-[11px] font-semibold bg-slate-100 border border-slate-300 rounded text-slate-700 shadow-inner">Space 空格键</kbd> 快捷播放 / 暂停</p>
+                </div>
+            </div>
+
+            <!-- 辅助工具按钮：音效开关与全部重置 -->
+            <div class="flex items-center gap-2.5">
+                <button id="btn-sound" onclick="toggleSound()" title="开启/关闭音效" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-sm font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 transition-all active:scale-95">
+                    <i id="icon-sound" class="ph-fill ph-speaker-high text-lg text-indigo-600"></i>
+                    <span id="text-sound">音效开启</span>
+                </button>
+                <button onclick="resetAll()" title="重置所有状态与历史记录" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-sm font-medium bg-rose-50 hover:bg-rose-100 text-rose-600 transition-all active:scale-95">
+                    <i class="ph-bold ph-arrows-counter-clockwise text-lg"></i>
+                    <span>全部重置</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- 核心展示与控制区域 -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            
+            <!-- 左侧/主视觉：醒目大卡片 + 播放暂停按钮 (占7列) -->
+            <div class="lg:col-span-7 flex flex-col justify-between bg-white/90 backdrop-blur-md rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200/80 relative overflow-hidden">
+                
+                <!-- 顶部装饰状态标签 -->
+                <div class="flex items-center justify-between z-10">
+                    <span id="status-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600">
+                        <span id="status-dot" class="w-2 h-2 rounded-full bg-slate-400"></span>
+                        <span id="status-text">准备就绪</span>
+                    </span>
+                    <span id="remaining-badge" class="text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                        剩余可抽: <strong id="remaining-count" class="text-indigo-600">26</strong> / 26
+                    </span>
+                </div>
+
+                <!-- 中央醒目字母大卡片 -->
+                <div class="my-6 flex flex-col items-center justify-center">
+                    <div id="letter-card" onclick="togglePlayPause()" title="点击卡片也可切换播放/暂停"
+                         class="w-48 h-48 sm:w-56 sm:h-56 rounded-3xl bg-gradient-to-br from-slate-50 to-indigo-50/60 border-2 border-indigo-100 flex flex-col items-center justify-center relative cursor-pointer transition-all duration-300 shadow-inner hover:border-indigo-300 group">
+                        
+                        <!-- 背景微光装饰 -->
+                        <div id="card-glow" class="absolute inset-0 rounded-3xl bg-gradient-to-br from-indigo-500/0 to-violet-500/0 transition-all duration-500 pointer-events-none"></div>
+
+                        <!-- 主字母显示 -->
+                        <span id="main-letter" class="text-8xl sm:text-9xl font-black tracking-tighter text-slate-800 select-none transition-colors duration-200">
+                            A
+                        </span>
+
+                        <!-- 字母序号角标 (如 A = #1) -->
+                        <span id="letter-index" class="mt-1 text-xs font-bold tracking-widest uppercase text-slate-400 group-hover:text-indigo-500 transition-colors">
+                            LETTER #01
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 播放与暂停控制按钮组 -->
+                <div class="grid grid-cols-2 gap-4 z-10">
+                    <!-- 播放（开始滚动）按钮 -->
+                    <button id="btn-play" onclick="startRolling()" 
+                            class="flex items-center justify-center gap-2.5 py-4 px-6 rounded-2xl font-bold text-base sm:text-lg text-white bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 shadow-lg shadow-indigo-500/25 transition-all duration-200 active:scale-95 disabled:opacity-40 disabled:pointer-events-none disabled:shadow-none">
+                        <i class="ph-fill ph-play text-2xl"></i>
+                        <span>播放滚动</span>
+                    </button>
+
+                    <!-- 暂停（停止抽取）按钮 -->
+                    <button id="btn-pause" onclick="pauseRolling()" disabled
+                            class="flex items-center justify-center gap-2.5 py-4 px-6 rounded-2xl font-bold text-base sm:text-lg text-white bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 shadow-lg shadow-amber-500/25 transition-all duration-200 active:scale-95 disabled:opacity-40 disabled:pointer-events-none disabled:shadow-none">
+                        <i class="ph-fill ph-pause text-2xl"></i>
+                        <span>暂停抽取</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 右侧：参数设置与26字母实时状态池 (占5列) -->
+            <div class="lg:col-span-5 flex flex-col justify-between gap-6">
+                
+                <!-- 控制面板卡片 -->
+                <div class="bg-white/90 backdrop-blur-md rounded-3xl p-6 shadow-sm border border-slate-200/80 flex flex-col gap-5">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                        <i class="ph-bold ph-sliders-horizontal text-indigo-500 text-base"></i>
+                        抽取参数设置
+                    </h2>
+
+                    <!-- 1. 滚动速度调节 -->
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold text-slate-700 flex items-center justify-between">
+                            <span>滚动速度</span>
+                            <span id="speed-label-desc" class="text-xs font-normal text-slate-400">中速 (80ms/次)</span>
+                        </label>
+                        <div class="grid grid-cols-3 gap-2 bg-slate-100 p-1.5 rounded-xl">
+                            <button onclick="setSpeed('slow')" id="speed-slow" class="speed-btn py-2 px-3 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 transition-all">
+                                🐢 慢速
+                            </button>
+                            <button onclick="setSpeed('medium')" id="speed-medium" class="speed-btn py-2 px-3 rounded-lg text-xs sm:text-sm font-semibold bg-white text-indigo-600 shadow-sm transition-all">
+                                ⚡ 中速
+                            </button>
+                            <button onclick="setSpeed('fast')" id="speed-fast" class="speed-btn py-2 px-3 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 transition-all">
+                                🚀 快速
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 2. 抽取模式切换 -->
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold text-slate-700 flex items-center justify-between">
+                            <span>抽取模式</span>
+                            <span id="mode-label-desc" class="text-xs font-normal text-slate-400">每次从全部26个字母中随机</span>
+                        </label>
+                        <div class="grid grid-cols-2 gap-2 bg-slate-100 p-1.5 rounded-xl">
+                            <button onclick="setMode('repeat')" id="mode-repeat" class="mode-btn py-2.5 px-3 rounded-lg text-xs sm:text-sm font-semibold bg-white text-indigo-600 shadow-sm transition-all flex items-center justify-center gap-1.5">
+                                <i class="ph-bold ph-infinity text-base"></i>
+                                <span>允许重复</span>
+                            </button>
+                            <button onclick="setMode('unique')" id="mode-unique" class="mode-btn py-2.5 px-3 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 transition-all flex items-center justify-center gap-1.5">
+                                <i class="ph-bold ph-check-circle text-base"></i>
+                                <span>不重复抽取</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 26个英文字母池状态预览 -->
+                <div class="bg-white/90 backdrop-blur-md rounded-3xl p-6 shadow-sm border border-slate-200/80 flex-1 flex flex-col justify-between gap-3">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                            <i class="ph-bold ph-grid-four text-indigo-500 text-base"></i>
+                            A-Z 字母池状态
+                        </h2>
+                        <span class="text-[11px] text-slate-400 font-medium">高亮表示已抽中</span>
+                    </div>
+
+                    <!-- 26个字母网格 -->
+                    <div id="alphabet-pool" class="grid grid-cols-7 sm:grid-cols-9 lg:grid-cols-7 gap-1.5 my-auto">
+                        <!-- 由 JS 动态生成 A-Z -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 底部：已停留在的字母历史记录 -->
+        <section class="bg-white/90 backdrop-blur-md rounded-3xl p-6 shadow-sm border border-slate-200/80 flex flex-col gap-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2.5">
+                    <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                        <i class="ph-fill ph-clock-counter-clockwise text-indigo-600 text-xl"></i>
+                        已停留字母历史记录
+                    </h2>
+                    <span id="history-count-badge" class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-indigo-50 text-indigo-600">
+                        共 0 次
+                    </span>
+                </div>
+
+                <!-- 清空重置按钮 -->
+                <button id="btn-clear-history" onclick="clearHistory()" disabled
+                        class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-rose-600 bg-slate-100 hover:bg-rose-50 transition-all active:scale-95 disabled:opacity-40 disabled:pointer-events-none">
+                    <i class="ph-bold ph-trash text-base"></i>
+                    <span>清空历史记录</span>
+                </button>
+            </div>
+
+            <!-- 历史记录列表容器 -->
+            <div id="history-list" class="min-h-[76px] max-h-44 overflow-y-auto p-3 rounded-2xl bg-slate-50/80 border border-slate-200/60 flex flex-wrap items-center gap-2.5">
+                <!-- 空状态提示 -->
+                <div id="history-empty" class="w-full py-4 text-center text-sm text-slate-400 flex items-center justify-center gap-2">
+                    <i class="ph ph-sparkle text-lg"></i>
+                    <span>暂无抽取记录，点击上方「播放滚动」然后「暂停抽取」即可生成记录</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 页脚版权与说明 -->
+    <footer class="text-center text-xs text-slate-400 py-4">
+        A-Z Random Letter Roller &bull; 现代响应式课堂点名 / 互动抽奖工具
+    </footer>
+
+    <!-- 核心逻辑脚本 -->
+    <script>
+        // ==================== 基础常量与状态配置 ====================
+        const ALL_LETTERS = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
+        
+        // 三档速度对应的时间间隔 (毫秒)
+        const SPEED_CONFIG = {
+            slow: { interval: 160, desc: '慢速 (160ms/次)' },
+            medium: { interval: 75, desc: '中速 (75ms/次)' },
+            fast: { interval: 32, desc: '快速 (32ms/次)' }
+        };
+
+        // 应用运行状态
+        let state = {
+            isRolling: false,
+            timerId: null,
+            currentLetter: 'A',
+            speed: 'medium',        // 'slow' | 'medium' | 'fast'
+            mode: 'repeat',         // 'repeat' (允许重复) | 'unique' (不重复抽取)
+            availableLetters: [...ALL_LETTERS], // 不重复模式下的剩余可用字母池
+            history: [],            // 抽取历史 [{ letter, time, order }]
+            soundEnabled: true      // 是否开启合成音效
+        };
+
+        // ==================== Web Audio API 音效合成器 (无需外部音频资源) ====================
+        let audioCtx = null;
+
+        function initAudioContext() {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) {
+                    audioCtx = new AudioContextClass();
+                }
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        // 播放滚动时的清脆滴答声
+        function playTickSound() {
+            if (!state.soundEnabled) return;
+            try {
+                initAudioContext();
+                if (!audioCtx) return;
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                // 随机微调频率让滚动声更有灵动感
+                osc.frequency.setValueAtTime(520 + Math.random() * 120, audioCtx.currentTime);
+                
+                gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.035);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.04);
+            } catch (e) {
+                // 忽略部分浏览器未交互前的音频限制错误
+            }
+        }
+
+        // 播放暂停定格时的揭晓和弦音效
+        function playWinSound() {
+            if (!state.soundEnabled) return;
+            try {
+                initAudioContext();
+                if (!audioCtx) return;
+
+                const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+                notes.forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    const startTime = audioCtx.currentTime + idx * 0.055;
+                    osc.frequency.setValueAtTime(freq, startTime);
+
+                    gain.gain.setValueAtTime(0.12, startTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.35);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    osc.start(startTime);
+                    osc.stop(startTime + 0.36);
+                });
+            } catch (e) {}
+        }
+
+        // ==================== DOM 元素引用 ====================
+        const mainLetterEl = document.getElementById('main-letter');
+        const letterIndexEl = document.getElementById('letter-index');
+        const letterCardEl = document.getElementById('letter-card');
+        const cardGlowEl = document.getElementById('card-glow');
+        const btnPlay = document.getElementById('btn-play');
+        const btnPause = document.getElementById('btn-pause');
+        const statusBadge = document.getElementById('status-badge');
+        const statusDot = document.getElementById('status-dot');
+        const statusText = document.getElementById('status-text');
+        const remainingCountEl = document.getElementById('remaining-count');
+        const alphabetPoolEl = document.getElementById('alphabet-pool');
+        const historyListEl = document.getElementById('history-list');
+        const historyCountBadge = document.getElementById('history-count-badge');
+        const btnClearHistory = document.getElementById('btn-clear-history');
+
+        // ==================== 初始化与渲染函数 ====================
+        function initApp() {
+            renderAlphabetPool();
+            updateRemainingPoolUI();
+            updateLetterDisplay('A', false);
+        }
+
+        // 渲染右侧26个英文字母状态小方块
+        function renderAlphabetPool() {
+            alphabetPoolEl.innerHTML = '';
+            const drawnSet = new Set(state.history.map(item => item.letter));
+
+            ALL_LETTERS.forEach(letter => {
+                const isDrawn = drawnSet.has(letter);
+                const isAvailable = state.mode === 'repeat' ? true : state.availableLetters.includes(letter);
+
+                const item = document.createElement('div');
+                item.id = `pool-letter-${letter}`;
+                
+                let baseClass = 'h-8 rounded-lg text-xs font-bold flex items-center justify-center transition-all duration-200 select-none ';
+                if (state.mode === 'unique' && !isAvailable) {
+                    // 不重复模式下已经被抽走
+                    baseClass += 'bg-indigo-600 text-white shadow-sm scale-95';
+                } else if (isDrawn) {
+                    // 允许重复模式下曾被抽中过
+                    baseClass += 'bg-indigo-100 text-indigo-700 border border-indigo-200';
+                } else {
+                    // 尚未抽中
+                    baseClass += 'bg-slate-100 text-slate-600 hover:bg-slate-200/70';
+                }
+
+                item.className = baseClass;
+                item.textContent = letter;
+                alphabetPoolEl.appendChild(item);
+            });
+        }
+
+        // 更新中央大卡片字母显示
+        function updateLetterDisplay(letter, isFinalPick = false) {
+            state.currentLetter = letter;
+            mainLetterEl.textContent = letter;
+            const charNum = letter.charCodeAt(0) - 64;
+            letterIndexEl.textContent = `LETTER #${String(charNum).padStart(2, '0')}`;
+
+            if (isFinalPick) {
+                // 暂停定格时触发弹跳高亮动画
+                mainLetterEl.classList.remove('rolling-letter', 'text-slate-800');
+                mainLetterEl.classList.add('text-indigo-600', 'animate-pop');
+                letterCardEl.classList.add('selected-card', 'border-indigo-500');
+                cardGlowEl.className = 'absolute inset-0 rounded-3xl bg-gradient-to-br from-indigo-500/10 to-violet-500/15 transition-all duration-500 pointer-events-none';
+                
+                setTimeout(() => {
+                    mainLetterEl.classList.remove('animate-pop');
+                }, 500);
+            }
+        }
+
+        // 更新剩余可抽取字母数量显示
+        function updateRemainingPoolUI() {
+            if (state.mode === 'repeat') {
+                remainingCountEl.textContent = '26';
+            } else {
+                remainingCountEl.textContent = state.availableLetters.length;
+            }
+        }
+
+        // ==================== 播放与暂停核心逻辑 ====================
+
+        // 开始滚动
+        function startRolling() {
+            if (state.isRolling) return;
+
+            // 检查不重复模式下是否26个字母已经全部抽完
+            if (state.mode === 'unique' && state.availableLetters.length === 0) {
+                showToast('26个字母已全部抽取完毕！已为您自动重置新一轮字母池。', 'info');
+                state.availableLetters = [...ALL_LETTERS];
+                renderAlphabetPool();
+                updateRemainingPoolUI();
+            }
+
+            // 如果不重复模式下只剩最后1个字母，也先滚动一下增强仪式感
+            state.isRolling = true;
+
+            // 更新按钮状态
+            btnPlay.disabled = true;
+            btnPause.disabled = false;
+
+            // 更新顶部状态指示器
+            statusBadge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-600';
+            statusDot.className = 'w-2 h-2 rounded-full bg-indigo-600 animate-ping';
+            statusText.textContent = '正在随机滚动...';
+
+            // 卡片进入动感滚动样式
+            mainLetterEl.classList.remove('text-indigo-600', 'animate-pop');
+            mainLetterEl.classList.add('rolling-letter', 'text-slate-800');
+            letterCardEl.classList.remove('selected-card', 'border-indigo-500');
+            cardGlowEl.className = 'absolute inset-0 rounded-3xl bg-gradient-to-br from-indigo-500/5 to-violet-500/5 transition-all duration-300 pointer-events-none';
+
+            // 启动定时滚动
+            runTimerLoop();
+        }
+
+        function runTimerLoop() {
+            if (state.timerId) clearInterval(state.timerId);
+            const intervalMs = SPEED_CONFIG[state.speed].interval;
+
+            state.timerId = setInterval(() => {
+                const pool = state.mode === 'unique' ? state.availableLetters : ALL_LETTERS;
+                if (pool.length === 0) return;
+
+                let nextLetter;
+                if (pool.length === 1) {
+                    // 当只剩1个可用字母时，为了让滚动看起来有动感，视觉上穿插其它字母，暂停时必定落在该唯一字母上
+                    const randomVisual = ALL_LETTERS[Math.floor(Math.random() * ALL_LETTERS.length)];
+                    nextLetter = randomVisual;
+                } else {
+                    // 避免连续两次展示完全相同的字母，确保视觉滚动流畅
+                    do {
+                        nextLetter = pool[Math.floor(Math.random() * pool.length)];
+                    } while (nextLetter === state.currentLetter && pool.length > 1);
+                }
+
+                updateLetterDisplay(nextLetter, false);
+                playTickSound();
+            }, intervalMs);
+        }
+
+        // 暂停并定格抽取结果
+        function pauseRolling() {
+            if (!state.isRolling) return;
+
+            clearInterval(state.timerId);
+            state.timerId = null;
+            state.isRolling = false;
+
+            // 确定最终停留在哪个字母
+            const pool = state.mode === 'unique' ? state.availableLetters : ALL_LETTERS;
+            let chosenLetter = state.currentLetter;
+
+            // 在不重复模式下，确保最终定格的字母一定属于可用池（处理只剩1个字母时的视觉穿插情况）
+            if (state.mode === 'unique') {
+                if (!pool.includes(chosenLetter)) {
+                    chosenLetter = pool[Math.floor(Math.random() * pool.length)];
+                }
+                // 从可用池中移除已抽中的字母
+                state.availableLetters = state.availableLetters.filter(l => l !== chosenLetter);
+            }
+
+            // 视觉高亮与音效
+            updateLetterDisplay(chosenLetter, true);
+            playWinSound();
+
+            // 更新按钮状态
+            btnPlay.disabled = false;
+            btnPause.disabled = true;
+
+            // 更新顶部状态标签
+            statusBadge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-600';
+            statusDot.className = 'w-2 h-2 rounded-full bg-emerald-500';
+            statusText.textContent = `已定格字母: ${chosenLetter}`;
+
+            // 记录到历史记录中
+            addHistoryRecord(chosenLetter);
+            renderAlphabetPool();
+            updateRemainingPoolUI();
+
+            // 如果不重复模式下刚好抽完了全部26个字母，触发礼花庆祝
+            if (state.mode === 'unique' && state.availableLetters.length === 0) {
+                launchConfetti();
+                showToast('🎉 恭喜！26个英文字母已全部抽取完毕！', 'success');
+            }
+        }
+
+        // 切换播放/暂停 (用于空格键或点击大卡片)
+        function togglePlayPause() {
+            if (state.isRolling) {
+                pauseRolling();
+            } else {
+                startRolling();
+            }
+        }
+
+        // ==================== 参数调节（速度与模式） ====================
+
+        // 设置滚动速度
+        function setSpeed(speedKey) {
+            if (!SPEED_CONFIG[speedKey]) return;
+            state.speed = speedKey;
+
+            // 更新按钮高亮样式
+            ['slow', 'medium', 'fast'].forEach(key => {
+                const btn = document.getElementById(`speed-${key}`);
+                if (key === speedKey) {
+                    btn.className = 'speed-btn py-2 px-3 rounded-lg text-xs sm:text-sm font-semibold bg-white text-indigo-600 shadow-sm transition-all';
+                } else {
+                    btn.className = 'speed-btn py-2 px-3 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all';
+                }
+            });
+
+            document.getElementById('speed-label-desc').textContent = SPEED_CONFIG[speedKey].desc;
+
+            // 如果当前正在滚动中，实时无缝应用新速度
+            if (state.isRolling) {
+                runTimerLoop();
+            }
+        }
+
+        // 设置抽取模式
+        function setMode(modeKey) {
+            if (state.mode === modeKey) return;
+            state.mode = modeKey;
+
+            const btnRepeat = document.getElementById('mode-repeat');
+            const btnUnique = document.getElementById('mode-unique');
+            const modeDesc = document.getElementById('mode-label-desc');
+
+            if (modeKey === 'repeat') {
+                btnRepeat.className = 'mode-btn py-2.5 px-3 rounded-lg text-xs sm:text-sm font-semibold bg-white text-indigo-600 shadow-sm transition-all flex items-center justify-center gap-1.5';
+                btnUnique.className = 'mode-btn py-2.5 px-3 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all flex items-center justify-center gap-1.5';
+                modeDesc.textContent = '每次从全部26个字母中随机';
+                showToast('已切换为「允许重复」抽取模式', 'info');
+            } else {
+                btnUnique.className = 'mode-btn py-2.5 px-3 rounded-lg text-xs sm:text-sm font-semibold bg-white text-indigo-600 shadow-sm transition-all flex items-center justify-center gap-1.5';
+                btnRepeat.className = 'mode-btn py-2.5 px-3 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all flex items-center justify-center gap-1.5';
+                modeDesc.textContent = '抽过的字母不再出现，直到26个抽完';
+                
+                // 根据当前历史记录同步过滤掉已经抽过的字母
+                const drawnLetters = new Set(state.history.map(item => item.letter));
+                state.availableLetters = ALL_LETTERS.filter(l => !drawnLetters.has(l));
+                showToast(`已切换为「不重复抽取」，当前剩余 ${state.availableLetters.length} 个字母`, 'info');
+            }
+
+            renderAlphabetPool();
+            updateRemainingPoolUI();
+        }
+
+        // ==================== 历史记录管理 ====================
+
+        function addHistoryRecord(letter) {
+            const now = new Date();
+            const timeStr = now.toTimeString().split(' ')[0]; // HH:MM:SS
+            const record = {
+                order: state.history.length + 1,
+                letter: letter,
+                time: timeStr
+            };
+            state.history.unshift(record); // 最新抽中的排在最前面
+            renderHistoryList();
+        }
+
+        function renderHistoryList() {
+            historyCountBadge.textContent = `共 ${state.history.length} 次`;
+            btnClearHistory.disabled = state.history.length === 0;
+
+            if (state.history.length === 0) {
+                historyListEl.innerHTML = `
+                    <div id="history-empty" class="w-full py-4 text-center text-sm text-slate-400 flex items-center justify-center gap-2">
+                        <i class="ph ph-sparkle text-lg"></i>
+                        <span>暂无抽取记录，点击上方「播放滚动」然后「暂停抽取」即可生成记录</span>
+                    </div>
+                `;
+                return;
+            }
+
+            historyListEl.innerHTML = '';
+            state.history.forEach((item, index) => {
+                const badge = document.createElement('div');
+                const isLatest = index === 0;
+                
+                badge.className = `inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border transition-all ${
+                    isLatest 
+                        ? 'bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-500/20 animate-pop' 
+                        : 'bg-white text-slate-700 border-slate-200 hover:border-indigo-200'
+                }`;
+
+                badge.innerHTML = `
+                    <span class="text-xs font-semibold ${isLatest ? 'text-indigo-200' : 'text-slate-400'}">#${item.order}</span>
+                    <span class="text-lg font-extrabold tracking-tight">${item.letter}</span>
+                    <span class="text-[10px] ${isLatest ? 'text-indigo-200' : 'text-slate-400'}">${item.time}</span>
+                `;
+                historyListEl.appendChild(badge);
+            });
+        }
+
+        // 清空历史记录并重置可用字母池
+        function clearHistory() {
+            state.history = [];
+            state.availableLetters = [...ALL_LETTERS];
+            renderHistoryList();
+            renderAlphabetPool();
+            updateRemainingPoolUI();
+            showToast('历史记录与字母池已清空重置', 'info');
+        }
+
+        // 全部重置（停止滚动、清空历史、恢复默认字母A）
+        function resetAll() {
+            if (state.isRolling) {
+                clearInterval(state.timerId);
+                state.timerId = null;
+                state.isRolling = false;
+            }
+
+            state.history = [];
+            state.availableLetters = [...ALL_LETTERS];
+            
+            btnPlay.disabled = false;
+            btnPause.disabled = true;
+
+            mainLetterEl.classList.remove('rolling-letter', 'text-indigo-600', 'animate-pop');
+            mainLetterEl.classList.add('text-slate-800');
+            letterCardEl.classList.remove('selected-card', 'border-indigo-500');
+            cardGlowEl.className = 'absolute inset-0 rounded-3xl bg-gradient-to-br from-indigo-500/0 to-violet-500/0 transition-all duration-500 pointer-events-none';
+
+            statusBadge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600';
+            statusDot.className = 'w-2 h-2 rounded-full bg-slate-400';
+            statusText.textContent = '准备就绪';
+
+            updateLetterDisplay('A', false);
+            renderHistoryList();
+            renderAlphabetPool();
+            updateRemainingPoolUI();
+            showToast('所有状态已恢复初始设置', 'info');
+        }
+
+        // 切换音效开关
+        function toggleSound() {
+            state.soundEnabled = !state.soundEnabled;
+            const iconSound = document.getElementById('icon-sound');
+            const textSound = document.getElementById('text-sound');
+
+            if (state.soundEnabled) {
+                iconSound.className = 'ph-fill ph-speaker-high text-lg text-indigo-600';
+                textSound.textContent = '音效开启';
+                playTickSound();
+            } else {
+                iconSound.className = 'ph-fill ph-speaker-slash text-lg text-slate-400';
+                textSound.textContent = '音效关闭';
+            }
+        }
+
+        // ==================== 键盘快捷键监听 (Space 空格键) ====================
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                // 防止空格键触发页面滚动或焦点按钮二次点击
+                e.preventDefault();
+                if (document.activeElement && document.activeElement.tagName === 'BUTTON') {
+                    document.activeElement.blur();
+                }
+                togglePlayPause();
+            }
+        });
+
+        // ==================== 轻量级 Toast 消息提示组件 ====================
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const bgClass = type === 'success' 
+                ? 'bg-emerald-600 text-white shadow-emerald-500/20' 
+                : 'bg-slate-800/95 text-white shadow-slate-900/20';
+
+            toast.className = `px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold shadow-lg backdrop-blur-md flex items-center gap-2 transition-all duration-300 transform translate-y-0 opacity-100 ${bgClass}`;
+            toast.innerHTML = `
+                <i class="ph-fill ${type === 'success' ? 'ph-confetti' : 'ph-info'} text-base"></i>
+                <span>${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', '-translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 2600);
+        }
+
+        // ==================== Canvas 礼花彩带特效 ====================
+        function launchConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            const colors = ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#3b82f6'];
+
+            for (let i = 0; i < 90; i++) {
+                particles.push({
+                    x: canvas.width / 2,
+                    y: canvas.height / 2,
+                    vx: (Math.random() - 0.5) * 18,
+                    vy: (Math.random() - 0.7) * 18 - 4,
+                    size: Math.random() * 8 + 4,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    rotation: Math.random() * 360,
+                    vr: (Math.random() - 0.5) * 10,
+                    alpha: 1
+                });
+            }
+
+            function renderFrame() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let active = false;
+
+                particles.forEach(p => {
+                    if (p.alpha <= 0) return;
+                    active = true;
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.38; // 重力
+                    p.rotation += p.vr;
+                    p.alpha -= 0.012;
+
+                    ctx.save();
+                    ctx.globalAlpha = Math.max(0, p.alpha);
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate((p.rotation * Math.PI) / 180);
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                    ctx.restore();
+                });
+
+                if (active) {
+                    requestAnimationFrame(renderFrame);
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
+            }
+
+            requestAnimationFrame(renderFrame);
+        }
+
+        // 窗口尺寸变化时同步更新彩带画布大小
+        window.addEventListener('resize', () => {
+            const canvas = document.getElementById('confetti-canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // 启动初始化
+        window.onload = initApp;
+    </script>
+</body>
+</html>
